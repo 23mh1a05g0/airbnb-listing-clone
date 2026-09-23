@@ -20,10 +20,12 @@ export default function HostDetails() {
         <div className="host-card">
           <img
             className="host-brand"
-            src={getOptimizedImageUrl(LISTING.hostAvatar, 120, 75)}
+            src={getOptimizedImageUrl(LISTING.hostAvatar, 120, 75, "webp")}
             alt="Host"
             loading="lazy"
             decoding="async"
+            width={112}
+            height={112}
           />
           <div className="host-name">{LISTING.host}</div>
           <div className="host-role">Host</div>
