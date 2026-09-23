@@ -1,0 +1,31 @@
+{
+  "name": "airbnb-listing-clone",
+  "version": "1.0.0",
+  "description": "A pixel-perfect, high-performance, and responsive clone of an Airbnb property listing page built with React, Vite, and modern CSS.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/23mh1a05g0/airbnb-listing-clone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/23mh1a05g0/airbnb-listing-clone/issues"
+  },
+  "homepage": "https://github.com/23mh1a05g0/airbnb-listing-clone#readme",
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "vite": "^8.3.0"
+  }
+}
