@@ -165,6 +165,29 @@ npm run preview
 
 ---
 
+## 🤖 AI Config Files — How to Use
+
+Copy the contents of this folder into the root of your actual project repo, preserving the paths:
+
+```text
+your-project/
+  CLAUDE.md
+  AGENTS.md
+  .claude/
+    agents/
+      fidelity-reviewer.md
+      a11y-auditor.md
+```
+
+- `CLAUDE.md` / `AGENTS.md` — read automatically by Claude Code / other agents at session start. Edit the "Runtime constraint" section if your actual deployment differs from Hatchable, and edit the tech stack section to match what you actually shipped.
+- `.claude/agents/*.md` — two subagents you can invoke explicitly in Claude Code, e.g.:
+  - *"Use the fidelity-reviewer subagent to check the Amenities section I just built"*
+  - *"Use the a11y-auditor subagent to check the Lightbox before I move on"*
+
+These are meant to reflect a real workflow, not just satisfy the "include config files" requirement — actually invoke the subagents as you build so the review comments in your prompt log are genuine.
+
+---
+
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
