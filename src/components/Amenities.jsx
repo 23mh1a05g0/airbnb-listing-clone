@@ -1,4 +1,5 @@
 import LISTING from "../data/listingData";
+import { AmenityIcon } from "./Icons";
 
 export default function Amenities() {
   return (
@@ -6,9 +7,11 @@ export default function Amenities() {
       <h2>What this place offers</h2>
       <div className="amenities">
         {LISTING.amenities.map((a, i) => (
-          <div className={`amenity ${a[2] ? "unavailable" : ""}`} key={i}>
-            <span className="amenity-icon">{a[0]}</span>
-            <span>{a[1]}</span>
+          <div className={`amenity ${a.unavailable ? "unavailable" : ""}`} key={i}>
+            <span className="amenity-icon">
+              <AmenityIcon name={a.key} size={24} />
+            </span>
+            <span>{a.label}</span>
           </div>
         ))}
       </div>
