@@ -1,5 +1,11 @@
 import { useEffect, useRef } from "react";
 import LISTING, { getOptimizedImageUrl } from "../data/listingData";
+import {
+  GridIcon,
+  CloseIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "./Icons";
 
 export default function LightboxModal({
   photoIndex,
@@ -25,23 +31,23 @@ export default function LightboxModal({
     >
       <div className="overlay-top">
         <button
-          className="pill"
+          className="pill icon-pill-btn"
           id="tour"
           onClick={onOpenTour}
           aria-label="Back to photo tour"
         >
-          ▦
+          <GridIcon size={18} />
         </button>
         <strong>{p.caption}</strong>
         <div className="counter">
           {photoIndex + 1} of {LISTING.photos.length}{" "}
           <button
-            className="pill"
+            className="pill icon-pill-btn"
             id="close"
             onClick={onClose}
             aria-label="Close lightbox"
           >
-            ×
+            <CloseIcon size={16} />
           </button>
         </div>
       </div>
@@ -51,7 +57,7 @@ export default function LightboxModal({
         aria-label="Previous photo"
         onClick={onPrev}
       >
-        ‹
+        <ChevronLeftIcon size={20} />
       </button>
       <div className="lightbox-center">
         <img
@@ -67,7 +73,7 @@ export default function LightboxModal({
         aria-label="Next photo"
         onClick={onNext}
       >
-        ›
+        <ChevronRightIcon size={20} />
       </button>
     </div>
   );
