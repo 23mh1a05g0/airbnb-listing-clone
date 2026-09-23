@@ -1,18 +1,18 @@
 # Airbnb Listing Clone
 
-A pixel-perfect, high-performance, and responsive clone of an Airbnb property listing page built with modern Vanilla Web Technologies. Designed with zero build tools or external framework dependencies, delivering near-instant page loads, fluid micro-interactions, and accessible interactive components.
+A pixel-perfect, high-performance, and responsive clone of an Airbnb property listing page built with modern **React 19**, **Vite**, and **Vanilla CSS**. Designed with a modular component architecture, fluid micro-interactions, full keyboard accessibility, and an intelligent scroll-aware sticky booking engine.
 
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![React 19](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero-success?style=for-the-badge)](package.json)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ESM-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
 ---
 
 ## 🌟 Overview
 
-This project showcases a production-ready recreation of Airbnb's core listing experience. It replicates complex UI patterns—such as multi-stage modal photo tours, full-screen keyboard-navigable lightboxes, dynamic scroll-spying tabs, and an intelligent sticky booking widget—using clean, modular vanilla JavaScript and modern CSS.
+This project delivers a production-grade recreation of Airbnb's core property listing experience. It replicates complex UI patterns—such as multi-stage modal photo tours, full-screen keyboard-navigable lightboxes, dynamic scroll-spying tabs, and an intelligent sticky booking widget—using reusable React components and performant native CSS.
 
 ---
 
@@ -26,7 +26,7 @@ This project showcases a production-ready recreation of Airbnb's core listing ex
 - **Full-Screen Lightbox**:
   - Edge-to-edge high-resolution image viewing.
   - Image counter, previous/next controls, and looped cycling.
-  - Full keyboard accessibility: <kbd>←</kbd> / <kbd>→</kbd> arrow keys to navigate, and <kbd>Esc</kbd> to return to the photo tour.
+  - Full keyboard accessibility: <kbd>←</kbd> / <kbd>→</kbd> arrow keys to navigate, and <kbd>Esc</kbd> to return to the photo tour or main listing.
 
 ### 📌 Intelligent Sticky Reserve Widget
 - **Scroll-Aware Docking Engine**: Stays in document flow while the hero photo gallery is on screen, docks gracefully as a sticky element during content scrolling, and anchors cleanly above the reviews section without overlapping.
@@ -51,14 +51,13 @@ This project showcases a production-ready recreation of Airbnb's core listing ex
 
 ## 🏗️ Architecture & Tech Stack
 
-Built strictly with native web technologies to guarantee maximum performance, portability, and zero supply-chain overhead:
-
 | Layer | Technology | Description |
 | :--- | :--- | :--- |
-| **Structure** | **Semantic HTML5** | Accessible layout (`<header>`, `<main>`, `<section>`, `<aside>`, `<article>`, `<nav>`) with ARIA attributes and dialog semantics. |
+| **Framework** | **React 19** | Component-driven UI with reactive state management, hooks, and clean lifecycle handling. |
+| **Build Tool** | **Vite 8** | Ultra-fast development server with Hot Module Replacement (HMR) and optimized rollup production bundles. |
 | **Styling** | **Vanilla CSS3** | Custom properties (CSS variables), CSS Grid, Flexbox, media queries, keyframe animations, and custom scroll behaviors. |
-| **Logic** | **Vanilla JavaScript (ES6+)** | Dynamic DOM rendering, `IntersectionObserver` API, keyboard event listeners, and responsive scroll recalculations. |
-| **Data** | **JavaScript Object Model** | Self-contained mock dataset (`listing-data.js`) supporting easy backend or API integration. |
+| **State & Navigation** | **React Hooks** | View state coordination (`main`, `tour`, `lightbox`), active photo indexing, and keyboard shortcut event listeners. |
+| **Data Architecture** | **ES Modules** | Decoupled listing data module (`listingData.js`), structured for easy drop-in connection to REST or GraphQL APIs. |
 
 ---
 
@@ -66,54 +65,80 @@ Built strictly with native web technologies to guarantee maximum performance, po
 
 ```text
 airbnb-listing-clone/
-├── .gitignore          # Git exclusion rules (ignores local IDE cache & logs)
-├── README.md           # Project documentation and specifications
-└── public/             # Deployable static assets
-    ├── index.html      # HTML entry point and root mounting container
-    ├── theme.css       # Design tokens, color system, typography & base resets
-    ├── app.css         # Component styling, layouts, animations & responsive rules
-    ├── listing-data.js # Listing dataset, room specs, photos & reviews
-    └── app.js          # Core app controller, modal systems & sticky booking logic
+├── index.html                   # Root HTML entry point mounting React root
+├── vite.config.js               # Vite configuration with React plugin
+├── package.json                 # Project dependencies, scripts & metadata
+├── .gitignore                   # Git exclusion rules (node_modules, dist, logs)
+├── README.md                    # Project documentation
+├── public/                      # Static assets and original reference files
+└── src/
+    ├── main.jsx                 # React root DOM mount
+    ├── App.jsx                  # Main listing layout, modal state & keyboard coordinator
+    ├── data/
+    │   └── listingData.js       # Listing dataset, room specs, photos & reviews
+    ├── styles/
+    │   ├── theme.css            # Design tokens, color system, typography & base resets
+    │   └── app.css              # Component styling, layouts, animations & responsive rules
+    └── components/
+        ├── Header.jsx           # Top navigation bar, search pill & user menu
+        ├── TitleRow.jsx         # Listing title, share & save actions
+        ├── PhotoGrid.jsx        # 5-photo hero grid with "Show all photos" trigger
+        ├── NavigationTabs.jsx   # Sticky tabs with scroll-spy IntersectionObserver
+        ├── ListingOverview.jsx  # Rooms/guests count, guest favourite, host & highlights
+        ├── SleepingArrangements.jsx # "Where you'll sleep" room photo cards
+        ├── Amenities.jsx        # Categorized amenities list & "Show all 50" trigger
+        ├── CalendarSection.jsx  # Interactive two-month calendar preview
+        ├── BookingWidget.jsx    # Smart sticky Reserve card with docking engine
+        ├── ReviewsSection.jsx   # Overall score, category rating bars, tags & reviews grid
+        ├── LocationSection.jsx  # Location map placeholder & neighbourhood highlights
+        ├── HostDetails.jsx      # Host bio, host statistics & co-hosts grid
+        ├── Policies.jsx         # House rules, cancellation & safety policies
+        ├── NearbyStays.jsx      # Recommended stays carousel
+        ├── PhotoTourModal.jsx   # Full-page dual-pane photo tour overlay
+        └── LightboxModal.jsx    # Full-screen lightbox with keyboard & arrow navigation
 ```
 
 ---
 
 ## 🚀 Getting Started
 
-No build step, transpilation, or package installations are required. You can run the application directly using any static file server or your preferred browser.
+### Prerequisites
 
-### Option 1: Python Built-In HTTP Server (Recommended)
+Ensure you have [Node.js](https://nodejs.org/) (v18 or higher) installed on your machine.
 
-From the project root:
+### Installation
 
-```bash
-# Navigate to the public folder
-cd public
-
-# Start a local HTTP server
-python -m http.server 5500
-```
-
-Open your browser and navigate to:
-```
-http://localhost:5500
-```
-
-### Option 2: Node.js `npx serve`
+Clone the repository and install dependencies:
 
 ```bash
-npx serve public -p 5500
+git clone https://github.com/23mh1a05g0/airbnb-listing-clone.git
+cd airbnb-listing-clone
+npm install
 ```
 
-### Option 3: VS Code Live Server
+### Development Server
 
-1. Open the project folder in VS Code.
-2. Right-click [`public/index.html`](file:///e:/Projects/airbnb-listing-clone/public/index.html).
-3. Select **"Open with Live Server"**.
+Start the local Vite development server with HMR:
 
-### Option 4: Direct File Inspection
+```bash
+npm run dev
+```
 
-Simply double-click [`public/index.html`](file:///e:/Projects/airbnb-listing-clone/public/index.html) to open it directly in Google Chrome, Mozilla Firefox, Safari, or Microsoft Edge.
+Vite will serve the application locally (typically at `http://localhost:5500` or `http://localhost:5173`).
+
+### Production Build
+
+Create an optimized production bundle:
+
+```bash
+npm run build
+```
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
 
 ---
 
@@ -124,16 +149,17 @@ Simply double-click [`public/index.html`](file:///e:/Projects/airbnb-listing-clo
 | <kbd>→</kbd> / <kbd>Right Arrow</kbd> | Lightbox Modal | Advance to next photo |
 | <kbd>←</kbd> / <kbd>Left Arrow</kbd> | Lightbox Modal | Return to previous photo |
 | <kbd>Esc</kbd> | Lightbox Modal | Close lightbox and return to Photo Tour |
+| <kbd>Esc</kbd> | Photo Tour Modal | Close photo tour and return to Main Listing |
 | <kbd>Tab</kbd> / <kbd>Shift + Tab</kbd> | Global | Navigate interactive elements with visible focus rings |
 
 ---
 
 ## ⚡ Performance & Optimization Highlights
 
-- **Zero JavaScript Bundle Overhead**: No React, Vue, or Webpack runtime overhead.
+- **Sub-Second Build & Bundle Times**: Vite roll-up compilation creates lean, tree-shaken chunks.
 - **GPU-Accelerated Animations**: Transitions and hover states utilize `transform` and `opacity` properties for 60 FPS rendering.
-- **Passive Event Listeners**: Window scroll events use `{ passive: true }` and `requestAnimationFrame` for buttery-smooth scrolling.
-- **Decoupled Data Architecture**: Listing data is isolated in [`listing-data.js`](file:///e:/Projects/airbnb-listing-clone/public/listing-data.js), allowing drop-in connection to REST or GraphQL APIs.
+- **Scroll Docking Engine**: Calculation loop with passive event listeners ensures the sticky reservation widget moves without frame drops.
+- **Decoupled Data Architecture**: Listing data is isolated in [`src/data/listingData.js`](file:///src/data/listingData.js), allowing seamless hookup to backend microservices or REST/GraphQL endpoints.
 
 ---
 
