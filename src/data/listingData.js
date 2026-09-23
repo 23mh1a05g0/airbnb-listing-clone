@@ -160,10 +160,10 @@ const LISTING = {
 };
 
 /**
- * Optimizes an Unsplash image URL for target width, quality, and format
- * to drastically reduce download payloads and latency.
+ * Optimizes an Unsplash image URL for target width, quality, and modern format (WebP).
+ * Enables auto format negotiation with WebP fallback, cropping, and dimension right-sizing.
  */
-export function getOptimizedImageUrl(url, width = 800, quality = 75) {
+export function getOptimizedImageUrl(url, width = 800, quality = 75, format = "webp") {
   if (!url || typeof url !== "string") return url;
   if (url.includes("images.unsplash.com")) {
     let optimized = url;
@@ -180,9 +180,40 @@ export function getOptimizedImageUrl(url, width = 800, quality = 75) {
     if (!optimized.includes("auto=format")) {
       optimized += "&auto=format";
     }
+    if (!optimized.includes("fit=")) {
+      optimized += "&fit=crop";
+    }
+    if (format && !optimized.includes("fm=")) {
+      optimized += `&fm=${format}`;
+    }
     return optimized;
   }
   return url;
+}
+
+/**
+ * Generates responsive srcSet and sizes props for an image URL across given target widths.
+ */
+export function getResponsiveImageProps(url, {
+  widths = [480, 768, 1024],
+  sizes = "100vw",
+  defaultWidth = 800,
+  quality = 75,
+  format = "webp",
+} = {}) {
+  const src = getOptimizedImageUrl(url, defaultWidth, quality, format);
+  if (!url || !url.includes("images.unsplash.com")) {
+    return { src };
+  }
+  const srcSet = widths
+    .map((w) => `${getOptimizedImageUrl(url, w, quality, format)} ${w}w`)
+    .join(", ");
+
+  return {
+    src,
+    srcSet,
+    sizes,
+  };
 }
 
 export default LISTING;
