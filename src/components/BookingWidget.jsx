@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import LISTING from "../data/listingData";
+import { PriceTagIcon, ChevronDownIcon, FlagIcon } from "./Icons";
 
 export default function BookingWidget() {
   const wrapRef = useRef(null);
@@ -17,6 +18,8 @@ export default function BookingWidget() {
       bookingWrap.getBoundingClientRect().top + window.scrollY - 18;
 
     const syncBooking = () => {
+      if (window.innerWidth <= 800) return;
+
       const pageRect = pageEl.getBoundingClientRect();
       const wrapRect = bookingWrap.getBoundingClientRect();
       const bookingHeight = booking.offsetHeight;
@@ -72,7 +75,10 @@ export default function BookingWidget() {
     <aside className="booking-wrap" ref={wrapRef}>
       <div className="booking" ref={bookingRef}>
         <div className="discount discount-row">
-          <b>🏷 Get 10% off your next stay.</b>
+          <div className="discount-badge-text">
+            <PriceTagIcon size={16} />
+            <b>Get 10% off your next stay.</b>
+          </div>
           <div className="discount-actions">
             <a className="terms-link" href="#terms">
               Terms apply
@@ -93,7 +99,9 @@ export default function BookingWidget() {
         </div>
         <div className="guest-box">
           <span>GUESTS · {LISTING.guests} guests</span>
-          <span className="chevron">⌄</span>
+          <span className="chevron">
+            <ChevronDownIcon size={16} />
+          </span>
         </div>
         <div className="discount cancellation">
           Free cancellation before 17 October
@@ -102,7 +110,7 @@ export default function BookingWidget() {
         <p className="charged">You won't be charged yet</p>
       </div>
       <div className="report">
-        ⚑ <u>Report this listing</u>
+        <FlagIcon size={14} /> <u>Report this listing</u>
       </div>
     </aside>
   );
