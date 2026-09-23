@@ -81,10 +81,12 @@ export default function ReviewsSection() {
           <article className="review" key={i}>
             <div className="review-head">
               <img
-                src={getOptimizedImageUrl(x.avatar, 96, 75)}
+                src={getOptimizedImageUrl(x.avatar, 96, 75, "webp")}
                 alt={x.name}
                 loading="lazy"
                 decoding="async"
+                width={40}
+                height={40}
               />
               <div>
                 <b>{x.name}</b>
