@@ -1,14 +1,25 @@
 import LISTING, { getOptimizedImageUrl } from "../data/listingData";
+import {
+  LaurelBranchLeft,
+  LaurelBranchRight,
+  StarIcon,
+  SparkleCleanIcon,
+  TargetAccuracyIcon,
+  KeyIcon,
+  ChatBubbleIcon,
+  LocationPinIcon,
+  PriceTagIcon,
+} from "./Icons";
 
 const CATEGORIES = [
-  "Cleanliness",
-  "Accuracy",
-  "Check-in",
-  "Communication",
-  "Location",
-  "Value",
+  { name: "Cleanliness", score: "5.0", icon: <SparkleCleanIcon size={28} /> },
+  { name: "Accuracy", score: "5.0", icon: <TargetAccuracyIcon size={28} /> },
+  { name: "Check-in", score: "5.0", icon: <KeyIcon size={28} /> },
+  { name: "Communication", score: "5.0", icon: <ChatBubbleIcon size={28} /> },
+  { name: "Location", score: "4.8", icon: <LocationPinIcon size={28} /> },
+  { name: "Value", score: "4.8", icon: <PriceTagIcon size={28} /> },
 ];
-const SYMBOLS = ["⌁", "✓", "⌕", "▢", "▤", "◇"];
+
 const REVIEW_TAGS = [
   "Comfort 6",
   "Accuracy 5",
@@ -24,8 +35,9 @@ export default function ReviewsSection() {
     <section className="section" id="reviews">
       <div className="review-top">
         <div className="review-score">
-          <span className="laurel">❧</span> 4.95{" "}
-          <span className="laurel">❧</span>
+          <LaurelBranchLeft size={52} className="laurel-branch" />
+          <span>4.95</span>
+          <LaurelBranchRight size={52} className="laurel-branch" />
         </div>
         <h2>Guest favourite</h2>
         <p className="sub">
@@ -49,11 +61,11 @@ export default function ReviewsSection() {
             ))}
           </div>
         </div>
-        {CATEGORIES.map((x, n) => (
-          <div className="rating-category" key={x}>
-            <b>{x}</b>
-            <strong>{n > 3 ? "4.8" : "5.0"}</strong>
-            <span className="rating-symbol">{SYMBOLS[n]}</span>
+        {CATEGORIES.map((cat) => (
+          <div className="rating-category" key={cat.name}>
+            <b>{cat.name}</b>
+            <strong>{cat.score}</strong>
+            <span className="rating-symbol">{cat.icon}</span>
           </div>
         ))}
       </div>
@@ -79,9 +91,14 @@ export default function ReviewsSection() {
                 <div className="sub">{x.duration}</div>
               </div>
             </div>
-            <p>
-              ★★★★★ · {x.time}
-            </p>
+            <div className="review-rating-row">
+              <div className="stars-row" aria-label="5 stars">
+                {[...Array(5)].map((_, s) => (
+                  <StarIcon key={s} size={12} filled={true} />
+                ))}
+              </div>
+              <span className="review-date">· {x.time}</span>
+            </div>
             <p className="review-text">{x.text}</p>
           </article>
         ))}
