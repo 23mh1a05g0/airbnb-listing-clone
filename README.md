@@ -2,11 +2,14 @@
 
 A pixel-perfect, high-performance, and responsive clone of an Airbnb property listing page built with modern **React 19**, **Vite**, and **Vanilla CSS**. Designed with a modular component architecture, fluid micro-interactions, full keyboard accessibility, and an intelligent scroll-aware sticky booking engine.
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Render-00c7b7?style=for-the-badge&logo=render&logoColor=white)](https://stay-listing-showcase.onrender.com)
 [![React 19](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ESM-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
+
+> 🌐 **Live Demo:** [https://stay-listing-showcase.onrender.com](https://stay-listing-showcase.onrender.com)
 
 ---
 
