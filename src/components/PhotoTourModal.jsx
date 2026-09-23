@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import LISTING, { getOptimizedImageUrl } from "../data/listingData";
+import { ChevronLeftIcon, ShareIcon, HeartIcon } from "./Icons";
 
 export default function PhotoTourModal({
   initialIndex = 0,
@@ -25,11 +26,21 @@ export default function PhotoTourModal({
   return (
     <div className="overlay" role="dialog" aria-modal="true">
       <div className="overlay-top">
-        <button className="pill" id="back" onClick={onClose}>
-          ‹ Back
+        <button className="pill back-pill-btn" id="back" onClick={onClose}>
+          <ChevronLeftIcon size={16} />
+          <span>Back</span>
         </button>
         <strong>Photo tour</strong>
-        <div>↗ Share &nbsp; ♡ Save</div>
+        <div className="modal-actions">
+          <button className="link-btn" aria-label="Share">
+            <ShareIcon size={16} />
+            <span>Share</span>
+          </button>
+          <button className="link-btn" aria-label="Save">
+            <HeartIcon size={16} />
+            <span>Save</span>
+          </button>
+        </div>
       </div>
       <div className="tour-inner">
         <div className="thumb-grid">
@@ -58,10 +69,10 @@ export default function PhotoTourModal({
             <button
               className="photo-large-button"
               onClick={() => onOpenLightbox(n)}
+              aria-label={`View photo ${n + 1}: ${p.caption}`}
             >
               <img
-                className="room-photo"
-                src={getOptimizedImageUrl(p.url, 960, 75)}
+                src={getOptimizedImageUrl(p.url, 1200, 80)}
                 alt={p.caption}
                 loading="lazy"
                 decoding="async"
