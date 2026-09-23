@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import LISTING, { getOptimizedImageUrl } from "../data/listingData";
 import { ChevronLeftIcon, ShareIcon, HeartIcon } from "./Icons";
 
@@ -16,12 +16,12 @@ export default function PhotoTourModal({
     }
   }, [initialIndex]);
 
-  const scrollToPhoto = (index) => {
+  const scrollToPhoto = useCallback((index) => {
     const target = document.getElementById(`tour-photo-${index}`);
     if (target) {
       target.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  };
+  }, []);
 
   return (
     <div className="overlay" role="dialog" aria-modal="true">
@@ -43,6 +43,7 @@ export default function PhotoTourModal({
         </div>
       </div>
       <div className="tour-inner">
+        {/* Thumbnail strip — small images, all lazy */}
         <div className="thumb-grid">
           {LISTING.photos.map((p, n) => (
             <button
@@ -51,35 +52,48 @@ export default function PhotoTourModal({
               onClick={() => scrollToPhoto(n)}
             >
               <img
-                src={getOptimizedImageUrl(p.url, 260, 70)}
+                src={getOptimizedImageUrl(p.url, 200, 65, "webp")}
                 alt={p.caption}
                 loading="lazy"
                 decoding="async"
+                width={200}
+                height={135}
               />
               <figcaption>{p.caption}</figcaption>
             </button>
           ))}
         </div>
-        {LISTING.photos.map((p, n) => (
-          <section className="room-block" id={`tour-photo-${n}`} key={n}>
-            <div>
-              <h2>{p.room}</h2>
-              <p className="sub">{p.amenities}</p>
-            </div>
-            <button
-              className="photo-large-button"
-              onClick={() => onOpenLightbox(n)}
-              aria-label={`View photo ${n + 1}: ${p.caption}`}
-            >
-              <img
-                src={getOptimizedImageUrl(p.url, 1200, 80)}
-                alt={p.caption}
-                loading="lazy"
-                decoding="async"
-              />
-            </button>
-          </section>
-        ))}
+
+        {/* Full-size room photos — lazy-loaded individually as user scrolls */}
+        {LISTING.photos.map((p, n) => {
+          // First visible photo loads eagerly (user scrolled here from hero);
+          // remaining load lazily as user scrolls down the tour.
+          const isFirst = n === initialIndex;
+          return (
+            <section className="room-block" id={`tour-photo-${n}`} key={n}>
+              <div>
+                <h2>{p.room}</h2>
+                <p className="sub">{p.amenities}</p>
+              </div>
+              <button
+                className="photo-large-button"
+                onClick={() => onOpenLightbox(n)}
+                aria-label={`View photo ${n + 1}: ${p.caption}`}
+              >
+                <img
+                  src={getOptimizedImageUrl(p.url, 900, 78, "webp")}
+                  srcSet={`${getOptimizedImageUrl(p.url, 640, 75, "webp")} 640w, ${getOptimizedImageUrl(p.url, 900, 78, "webp")} 900w, ${getOptimizedImageUrl(p.url, 1200, 80, "webp")} 1200w`}
+                  sizes="(max-width: 900px) 100vw, 800px"
+                  alt={p.caption}
+                  loading={isFirst ? "eager" : "lazy"}
+                  decoding="async"
+                  width={900}
+                  height={600}
+                />
+              </button>
+            </section>
+          );
+        })}
       </div>
     </div>
   );
