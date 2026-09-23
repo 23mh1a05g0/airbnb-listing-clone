@@ -1,4 +1,5 @@
 import LISTING, { getOptimizedImageUrl } from "../data/listingData";
+import { ChevronLeftIcon, ChevronRightIcon, StarIcon } from "./Icons";
 
 const NEARBY_STAYS = [
   {
@@ -33,7 +34,15 @@ export default function NearbyStays() {
     <section className="section nearby">
       <div className="nearby-head">
         <h2>More stays nearby</h2>
-        <span>1 / 2　◯ ❯</span>
+        <div className="nearby-nav">
+          <span className="nearby-page-info">1 / 2</span>
+          <button className="nearby-arrow-btn" aria-label="Previous stays">
+            <ChevronLeftIcon size={14} />
+          </button>
+          <button className="nearby-arrow-btn" aria-label="Next stays">
+            <ChevronRightIcon size={14} />
+          </button>
+        </div>
       </div>
       <div className="nearby-grid">
         {LISTING.photos.slice(0, 5).map((p, n) => (
@@ -45,9 +54,12 @@ export default function NearbyStays() {
               decoding="async"
             />
             <b>{NEARBY_STAYS[n].title}</b>
-            <div>
-              ₹{NEARBY_STAYS[n].price.toLocaleString()}　★{" "}
-              {NEARBY_STAYS[n].rating}
+            <div className="stay-meta">
+              <span>₹{NEARBY_STAYS[n].price.toLocaleString()}</span>
+              <span className="stay-rating">
+                <StarIcon size={12} filled={true} />
+                {NEARBY_STAYS[n].rating}
+              </span>
             </div>
           </article>
         ))}
