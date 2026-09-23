@@ -3,3 +3,6 @@
 .vscode/
 .idea/
 .history/
+node_modules/
+dist/
+.env*.local
