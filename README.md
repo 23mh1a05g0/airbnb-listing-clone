@@ -70,7 +70,6 @@ airbnb-listing-clone/
 ├── package.json                 # Project dependencies, scripts & metadata
 ├── .gitignore                   # Git exclusion rules (node_modules, dist, logs)
 ├── README.md                    # Project documentation
-├── public/                      # Static assets and original reference files
 └── src/
     ├── main.jsx                 # React root DOM mount
     ├── App.jsx                  # Main listing layout, modal state & keyboard coordinator
