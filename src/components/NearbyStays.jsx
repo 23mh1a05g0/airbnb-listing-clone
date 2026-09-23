@@ -1,3 +1,4 @@
+import { memo } from "react";
 import LISTING, { getOptimizedImageUrl } from "../data/listingData";
 import { ChevronLeftIcon, ChevronRightIcon, StarIcon } from "./Icons";
 
@@ -29,7 +30,7 @@ const NEARBY_STAYS = [
   },
 ];
 
-export default function NearbyStays() {
+function NearbyStays() {
   return (
     <section className="section nearby">
       <div className="nearby-head">
@@ -45,25 +46,35 @@ export default function NearbyStays() {
         </div>
       </div>
       <div className="nearby-grid">
-        {LISTING.photos.slice(0, 5).map((p, n) => (
-          <article key={n}>
-            <img
-              src={getOptimizedImageUrl(p.url, 480, 75)}
-              alt={NEARBY_STAYS[n].title}
-              loading="lazy"
-              decoding="async"
-            />
-            <b>{NEARBY_STAYS[n].title}</b>
-            <div className="stay-meta">
-              <span>₹{NEARBY_STAYS[n].price.toLocaleString()}</span>
-              <span className="stay-rating">
-                <StarIcon size={12} filled={true} />
-                {NEARBY_STAYS[n].rating}
-              </span>
-            </div>
-          </article>
-        ))}
+        {LISTING.photos.slice(0, 5).map((p, n) => {
+          const src = getOptimizedImageUrl(p.url, 480, 75, "webp");
+          const srcSet = `${getOptimizedImageUrl(p.url, 240, 75, "webp")} 240w, ${getOptimizedImageUrl(p.url, 480, 75, "webp")} 480w`;
+          return (
+            <article key={n}>
+              <img
+                src={src}
+                srcSet={srcSet}
+                sizes="(max-width: 800px) 50vw, 220px"
+                alt={NEARBY_STAYS[n].title}
+                loading="lazy"
+                decoding="async"
+                width={220}
+                height={255}
+              />
+              <b>{NEARBY_STAYS[n].title}</b>
+              <div className="stay-meta">
+                <span>₹{NEARBY_STAYS[n].price.toLocaleString()}</span>
+                <span className="stay-rating">
+                  <StarIcon size={12} filled={true} />
+                  {NEARBY_STAYS[n].rating}
+                </span>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
 }
+
+export default memo(NearbyStays);
