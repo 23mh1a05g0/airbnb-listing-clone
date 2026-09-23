@@ -1,4 +1,5 @@
 import LISTING from "../data/listingData";
+import { ChevronLeftIcon, ChevronRightIcon, KeyboardIcon } from "./Icons";
 
 function MonthGrid({ name, total, start, selected }) {
   const cells = [];
@@ -38,10 +39,14 @@ export default function CalendarSection() {
       <p className="sub">18 Oct 2026 - 23 Oct 2026</p>
       <div className="calendar">
         <div className="calendar-nav">
-          <button aria-label="Previous month">‹</button>
+          <button className="cal-arrow-btn" aria-label="Previous month">
+            <ChevronLeftIcon size={16} />
+          </button>
           <div>October 2026</div>
           <div>November 2026</div>
-          <button aria-label="Next month">›</button>
+          <button className="cal-arrow-btn" aria-label="Next month">
+            <ChevronRightIcon size={16} />
+          </button>
         </div>
         <div className="cal-months">
           <MonthGrid name="October 2026" total={31} start={4} selected={true} />
@@ -54,7 +59,9 @@ export default function CalendarSection() {
         </div>
       </div>
       <div className="calendar-footer">
-        <span>▱</span>
+        <button className="keyboard-btn" aria-label="Keyboard shortcuts">
+          <KeyboardIcon size={20} />
+        </button>
         <button className="show-more">Clear dates</button>
       </div>
     </section>
