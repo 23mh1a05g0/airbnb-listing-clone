@@ -1,4 +1,25 @@
 import LISTING, { getOptimizedImageUrl } from "../data/listingData";
+import {
+  LaurelBranchLeft,
+  LaurelBranchRight,
+  StarIcon,
+  SparkleIcon,
+  WifiIcon,
+  LocationPinIcon,
+} from "./Icons";
+
+function HighlightIcon({ iconKey }) {
+  switch (iconKey) {
+    case "service":
+      return <SparkleIcon size={24} />;
+    case "wifi":
+      return <WifiIcon size={24} />;
+    case "location":
+      return <LocationPinIcon size={24} />;
+    default:
+      return <SparkleIcon size={24} />;
+  }
+}
 
 export default function ListingOverview() {
   return (
@@ -15,10 +36,11 @@ export default function ListingOverview() {
 
       <section className="section favourite-section">
         <div className="favourite">
-          <div>
+          <div className="fav-title-group">
             <h3>
-              <span className="laurel">❧</span> Guest favourite{" "}
-              <span className="laurel">❧</span>
+              <LaurelBranchLeft size={28} className="laurel-branch" />
+              <span>Guest favourite</span>
+              <LaurelBranchRight size={28} className="laurel-branch" />
             </h3>
             <p className="sub">
               One of the most loved homes on Airbnb, based on ratings, reviews,
@@ -27,7 +49,11 @@ export default function ListingOverview() {
           </div>
           <div className="fav-score">
             <strong>{LISTING.rating}</strong>
-            <div>★★★★★</div>
+            <div className="fav-stars" aria-label="5 out of 5 stars">
+              {[...Array(5)].map((_, i) => (
+                <StarIcon key={i} size={14} filled={true} />
+              ))}
+            </div>
             <small>{LISTING.reviews} Reviews</small>
           </div>
         </div>
@@ -52,7 +78,9 @@ export default function ListingOverview() {
       <section className="section highlights-section">
         {LISTING.highlights.map((h, i) => (
           <div className="highlight" key={i}>
-            <div className="highlight-icon">{h.icon}</div>
+            <div className="highlight-icon">
+              <HighlightIcon iconKey={h.iconKey} />
+            </div>
             <div>
               <b>{h.title}</b>
               <div className="sub">{h.desc}</div>
