@@ -63,10 +63,12 @@ export default function ListingOverview() {
         <div className="host">
           <img
             className="avatar"
-            src={getOptimizedImageUrl(LISTING.hostAvatar, 96, 75)}
+            src={getOptimizedImageUrl(LISTING.hostAvatar, 96, 75, "webp")}
             alt="Host"
             loading="lazy"
             decoding="async"
+            width={48}
+            height={48}
           />
           <div>
             <b>Hosted by {LISTING.host}</b>
