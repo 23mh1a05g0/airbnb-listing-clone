@@ -1,4 +1,5 @@
 import LISTING, { getOptimizedImageUrl } from "../data/listingData";
+import { StarIcon, MessageIcon } from "./Icons";
 
 const COHOSTS = [
   "Sharath",
@@ -29,7 +30,9 @@ export default function HostDetails() {
           <div className="host-stats">
             <b>1,463</b>
             <span>Reviews</span>
-            <b>4.68★</b>
+            <b className="stat-with-icon">
+              4.68 <StarIcon size={14} filled={true} />
+            </b>
             <span>Rating</span>
             <b>{LISTING.yearsHosting}</b>
             <span>Years hosting</span>
@@ -48,7 +51,10 @@ export default function HostDetails() {
             <br />
             Responds within an hour
           </p>
-          <button className="message-host">Message host</button>
+          <button className="message-host">
+            <MessageIcon size={16} />
+            <span>Message host</span>
+          </button>
         </div>
       </div>
     </section>
